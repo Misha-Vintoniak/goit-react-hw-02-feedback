@@ -16,16 +16,16 @@ class App extends Component {
   };
   countTotalFeedback = () => {
     const { good, neutral, bad } = this.state;
-
     return good + neutral + bad;
   };
 
-  countPositiveFeedbackPercentage() {
-    return `${((this.state.good / this.countTotalFeedback) * 100).toFixed(1)}%`;
+  countPositiveFeedbackPercentage(total) {
+    return `${((this.state.good / total) * 100).toFixed(1)}%`;
   }
-  total = this.countTotalFeedback();
+
   render() {
     const { good, neutral, bad } = this.state;
+    const total = this.countTotalFeedback();
 
     return (
       <Container>
@@ -41,8 +41,8 @@ class App extends Component {
               good={good}
               neutral={neutral}
               bad={bad}
-              total={this.total}
-              positivPercent={this.countPositiveFeedbackPercentage}
+              total={this.countTotalFeedback()}
+              positivPercent={this.countPositiveFeedbackPercentage(total)}
             ></Statistics>
           ) : (
             <alert>No feedback given</alert>
